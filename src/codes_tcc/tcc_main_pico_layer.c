@@ -19,23 +19,23 @@ int main(int args, char* argc[]) {
 
     pico_set_expert(1,20);
     pico_output_clear();
-    pico_output_draw_image("imgs/background_personalizar.png", &background);
-    pico_output_draw_image("imgs/personalizar/pinguim_amarelo.png", &pinguim);
-    pico_output_draw_image("imgs/botoes/b_voltar.png", &voltar);
+    pico_output_draw_image("../imgs/background_personalizar.png", &background);
+    pico_output_draw_image("../imgs/personalizar/pinguim_amarelo.png", &pinguim);
+    pico_output_draw_image("../imgs/botoes/b_voltar.png", &voltar);
     pico_output_draw_text("Escolha sua cor: ", &(Pico_Rel_Rect){'%', {0.60, 0.20, 0.38, 0.1}, PICO_ANCHOR_NW, NULL});
    
 
-    pico_layer_empty("quadro", (Pico_Abs_Dim){1360, 768});
+    pico_layer_empty_mode('#', "quadro", (Pico_Abs_Dim){7, 5});
     pico_set_layer("quadro");
 
-    pico_set_view(-1, &(Pico_Rel_Dim){'#', {7,5}}, &(Pico_Abs_Dim){1360/7,768/5},
+    pico_set_view(-1, NULL, &(Pico_Abs_Dim){1360/7,768/5},
     NULL,NULL,NULL,NULL,NULL);
 
-    pico_output_draw_image("imgs/personalizar/quadro.png",
+    pico_output_draw_image("../imgs/personalizar/quadro.png",
                             &(Pico_Rel_Rect){'#', {1,1,7,5}, PICO_ANCHOR_NW, NULL});
 
     char path[100];
-    char base[] = "imgs/personalizar"; 
+    char base[] = "../imgs/personalizar"; 
 
     for (int i = 0; i < CORES; i++) {
         snprintf(path, sizeof(path), "%s/%d.png", base, i);
