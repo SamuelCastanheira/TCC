@@ -9,8 +9,8 @@ pico.set.dim(phy)
 pico.set.expert(true,60)
 
 local background = {'%', x=0.5, y=0.5, w=1, h=1}
-local pinguim = {'%', x=0.3, y=0.35, w=0.3, h=0}
-local voltar = {'%', x=0.3, y=0.8, w=0.3, h=0}
+local pinguim = {'%', x=0.3, y=0.35, w=0.3}
+local voltar = {'%', x=0.3, y=0.8, w=0.3}
 local texto_escolha = {'%', x=0.60, y=0.20, w=0.38, h=0.1, anchor='NW'}
 
 pico.output.clear()

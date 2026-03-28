@@ -1,8 +1,6 @@
 require 'pico.check'
---objetivo do teste: entender porque ajustar a view e tile dava perda de transparencia
---da layer.
 
---apenas imprime na layer main com draw.image com single buffer
+print("apenas imprime na layer main com draw.image com single buffer\n\n")
 pico.init(true)
     pico.set.window { title="Somente draw image"}
     local background = {'%', x=0.5, y=0.5, w= 1.0, h=1.0}
@@ -11,11 +9,10 @@ pico.init(true)
     pico.output.draw.image("../../imgs/background_menu.png", background)
     pico.output.draw.image("../../imgs/logo.png", logo)
 
-    pico.input.delay(2000)
+    pico.input.delay(6000)
 pico.init(false)
 
---na layer "logo" imprime a imagem, que aparece com transparencia na
---layer pricipal ao imprimir, teste para demonstrar que assim há transparencia
+print("na layer logo imprime a imagem, que aparece com transparencia nalayer pricipal ao imprimir, teste para demonstrar que assim há transparencia\n\n")
 pico.init(true)
      pico.set.window { title="Layer sem mexer na view"}
     pico.layer.empty("logo", {w=100, h=100})
@@ -28,10 +25,10 @@ pico.init(true)
     pico.output.draw.image("../../imgs/background_menu.png", background)
     pico.output.draw.layer("logo", {'%', x= 0.5, y=0.5, w=1.0})
 
-    pico.input.delay(2000)
+    pico.input.delay(6000)
 pico.init(false)
 
---a layer "logo" apresenta uma zoom (source) e isso não afeta transparencia
+print("a layer logo apresenta uma zoom (source) e isso não afeta transparencia\n\n")
 pico.init(true)
     pico.set.window { title="Layer usando source e rotation"}
     pico.layer.empty("logo", {w=100, h=100})
@@ -47,10 +44,10 @@ pico.init(true)
     pico.output.draw.image("../../imgs/background_menu.png", background)
     pico.output.draw.layer("logo", {'%', x= 0.5, y=0.5, w=1.0})
 
-    pico.input.delay(2000)
+    pico.input.delay(6000)
 pico.init(false)
 
---modifico dim da layer e isso causa perda de transparencia em todos os tipos de rel_dim
+print("modifico dim da layer e isso causa perda de transparencia em todos os tipos de rel_dim\n\n")
 pico.init(true)
  pico.set.window { title="Layer mudando dim da view"}
     pico.layer.empty("logo", {w=100, h=100})
@@ -65,12 +62,10 @@ pico.init(true)
     pico.output.draw.image("../../imgs/background_menu.png", background)
     pico.output.draw.layer("logo", {'%', x= 0.5, y=0.5, w=1.0})
 
-    pico.input.delay(10000)
+    pico.input.delay(6000)
 pico.init(false)
 
---declaro implicitamente a quantidade de quadrados da view alterando o tile do layer,
---assim, transparencia se mantem. O que causa a perda da transparencia parece ser
---redimensionar a dim da layer
+print("declaro implicitamente a quantidade de quadrados da view alterando o tile do layer, assim, transparencia se mantem. O que causa a perda da transparencia parece ser redimensionar a dim da layer\n\n")
 pico.init(true)
  pico.set.window { title="Layer mudando tile da view"}
     pico.layer.empty("logo", {w=100, h=100})
@@ -85,5 +80,5 @@ pico.init(true)
     pico.output.draw.image("../../imgs/background_menu.png", background)
     pico.output.draw.layer("logo", {'%', x= 0.5, y=0.5, w=1.0})
 
-    pico.input.delay(10000)
+    pico.input.delay(6000)
 pico.init(false)
