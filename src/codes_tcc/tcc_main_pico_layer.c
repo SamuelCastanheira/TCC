@@ -26,7 +26,7 @@ int main(int args, char* argc[]) {
     pico_layer_empty("quadro", (Pico_Abs_Dim){600, 400});
     pico_set_layer("quadro");
 
-    pico_set_view(-1,NULL,&(Pico_Abs_Dim){85,80}, NULL, NULL,NULL,NULL,NULL);
+    pico_set_view(-1,&(Pico_Rel_Dim){'!', {600,400}},&(Pico_Abs_Dim){85,80}, NULL, NULL,NULL,NULL,NULL);
     Pico_Rel_Rect quadro_gelo = {'#', {1, 1, 7, 5} , PICO_ANCHOR_NW, NULL};
     pico_output_draw_image("../imgs/personalizar/quadro.png",
                             &quadro_gelo);
