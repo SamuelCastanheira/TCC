@@ -1,10 +1,3 @@
-function mouse_in_layer(layer)
-
-end
-
-
-
-
 pico.init(true)
 
 pico.layer.empty("ui", {w=100, h=100})
