@@ -1,2 +1,102 @@
-# Arquivos executáveis
-a.out
+# =========================
+
+# 🔧 Build C / C++
+
+# =========================
+
+*.o
+*.out
+*.a
+*.so
+*.dll
+*.exe
+*.lib
+*.dylib
+
+# Arquivos gerados
+
+*.log
+*.tmp
+*.cache
+
+# =========================
+
+# 📦 Pastas de build
+
+# =========================
+
+build/
+bin/
+obj/
+dist/
+cmake-build-*/
+CMakeFiles/
+Makefile
+compile_commands.json
+
+# =========================
+
+# 🧠 Debug / Profiling
+
+# =========================
+
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.ilk
+gmon.out
+valgrind.log
+
+# =========================
+
+# 🎮 SDL (assets temporários)
+
+# =========================
+
+*.bmp~
+*.png~
+*.wav~
+*.ogg~
+
+# =========================
+
+# 🐍 Lua
+
+# =========================
+
+*.luac
+
+# =========================
+
+# 🖥️ Sistema operacional
+
+# =========================
+
+# Linux
+
+*~
+.nfs*
+
+# macOS
+
+.DS_Store
+
+# Windows
+
+Thumbs.db
+desktop.ini
+
+# =========================
+
+# 🧪 IDEs / Editores
+
+# =========================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+

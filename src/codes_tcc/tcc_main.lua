@@ -37,8 +37,7 @@ for i = 0, qnt_cores - 1 do
             x = (i % 5) + 2,
             y = 2 + math.floor(i / 5),
             w = 1,
-            h = 1,
-            anchor = 'NW'
+            h = 1
         }
     )
 end
