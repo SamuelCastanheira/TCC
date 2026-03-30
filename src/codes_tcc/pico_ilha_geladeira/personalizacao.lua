@@ -51,7 +51,7 @@ function mouse_em_cor()
     for _, cor in ipairs(cores) do
         if pico.vs.pos_rect(mouse, cor.rect) then
             cor_select = cor
-            print("%s", cor.texto)
+            print(cor.texto)
         end 
     end
     pico.set.layer(nil)

@@ -1,17 +1,5 @@
 require 'pico.check'
 
-print("apenas imprime na layer main com draw.image com single buffer\n\n")
-pico.init(true)
-    pico.set.window { title="Somente draw image"}
-    local background = {'%', x=0.5, y=0.5, w= 1.0, h=1.0}
-    local logo = {'%', x= 0.5, y=0.5, w=1.0, h=1.0}
-
-    pico.output.draw.image("../../imgs/background_menu.png", background)
-    pico.output.draw.image("../../imgs/logo.png", logo)
-
-    pico.input.delay(6000)
-pico.init(false)
-
 print("na layer logo imprime a imagem, que aparece com transparencia nalayer pricipal ao imprimir, teste para demonstrar que assim há transparencia\n\n")
 pico.init(true)
      pico.set.window { title="Layer sem mexer na view"}
