@@ -29,7 +29,7 @@ int main(int args, char* argc[]) {
     SDL_Renderer *ren = SDL_CreateRenderer(win, -1, 0);
 
     TTF_Init();
-    TTF_Font* fnt = TTF_OpenFont("imgs/tiny.ttf", 50);
+    TTF_Font* fnt = TTF_OpenFont("../../imgs/tiny.ttf", 50);
     assert(fnt != NULL);
     SDL_Color clr = {0xFF,0xFF,0xFF,0xFF};
     SDL_Surface* sfc = TTF_RenderText_Blended(fnt, "Escolha sua cor: ", clr);
@@ -38,10 +38,10 @@ int main(int args, char* argc[]) {
     assert(txt_escolha != NULL);
     SDL_FreeSurface(sfc);
 
-    SDL_Texture* txt_background = IMG_LoadTexture(ren, "imgs/background_personalizar.png");
-    SDL_Texture* txt_quadro = IMG_LoadTexture(ren, "imgs/personalizar/quadro.png");
-    SDL_Texture* txt_bt_voltar = IMG_LoadTexture(ren, "imgs/botoes/b_voltar.png");
-    SDL_Texture* txt_pinguim = IMG_LoadTexture(ren, "imgs/personalizar/pinguim_amarelo.png");
+    SDL_Texture* txt_background = IMG_LoadTexture(ren, "../../imgs/background_personalizar.png");
+    SDL_Texture* txt_quadro = IMG_LoadTexture(ren, "../../imgs/personalizar/quadro.png");
+    SDL_Texture* txt_bt_voltar = IMG_LoadTexture(ren, "../../imgs/botoes/b_voltar.png");
+    SDL_Texture* txt_pinguim = IMG_LoadTexture(ren, "../../imgs/personalizar/pinguim_amarelo.png");
     
     SDL_Rect rect_background = {0, 0, LARGURA, ALTURA};
     SDL_Rect rect_quadro = {LARGURA*0.55, ALTURA*0.20, LARGURA*0.45, ALTURA*0.56};
@@ -59,7 +59,7 @@ int main(int args, char* argc[]) {
     int altura  = 0.117*ALTURA;
 
     char path[100];
-    char base[] = "imgs/personalizar"; 
+    char base[] = "../../imgs/personalizar"; 
 
     for (int i = 0; i < CORES; i++) {
         rect_cores[i].x = startX + (i % 5) * (largura + espaco);

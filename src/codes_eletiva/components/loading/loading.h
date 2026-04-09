@@ -17,8 +17,8 @@ static inline int RenderLoadingScreen(
     GameState *estadoJogo)
 {
 
-    SDL_Texture *capa = IMG_LoadTexture(renderizador, "imgs/capa.png");
-
+    SDL_Texture *capa = IMG_LoadTexture(renderizador, "../imgs/capa.png");
+    assert(capa != NULL);
     int LARGURA, ALTURA;
     obterTamanhoJanela(janela, &LARGURA, &ALTURA);
 

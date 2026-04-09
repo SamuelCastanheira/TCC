@@ -1,5 +1,6 @@
 require 'pico.check'
 local Personalizacao = require("personalizacao")
+local BeanCounters = require("bean_counters")
 
 local Menu = {}
 
@@ -14,13 +15,16 @@ function Menu.renderizar()
 
     while true do
         local e = pico.input.event()
-        local mouse = pico.get.mouse()
+        local mouse = pico.get.mouse('!')
         if e ~= nil then
             if e.tag=='mouse.button.dn' and pico.vs.pos_rect(mouse, bt_sair) then
                 pico.quit()
             end
             if e.tag=='mouse.button.dn' and pico.vs.pos_rect(mouse, bt_personalizar) then
                 Personalizacao.renderizar()
+            end
+            if e.tag=='mouse.button.dn' and pico.vs.pos_rect(mouse, bt_jogar) then
+                BeanCounters.renderizar()
             end
             if e.tag=='quit' then
                 break

@@ -25,8 +25,8 @@ local cor_select = cores[1]
 local background = {'%', x=0.5, y=0.5, w=1, h=1}
 local pinguim = {'%', x=0.3, y=0.35, w=0.3, h=0}
 local voltar = {'%', x=0.3, y=0.8, w=0.3, h=0}
-local texto_escolha = {'%', x=0.78, y=0.25, w=0.38, h=0.1, anchor='C'}
-local mouse
+local texto_escolha = {'%', x=0.78, y=0.25, w=0.38, h=0.1}
+local layer_place = {'%', x=0.78, y=0.5, w=0.4, h=0.5}
 
 
 function cria_layer_quadro()
@@ -44,29 +44,30 @@ function cria_layer_quadro()
         local path = string.format("%s/%d.png", base, cor.index)
         pico.output.draw.image(path, cor.rect)
     end
+        pico.set.layer(nil)
 end
 
 function mouse_em_cor()
-    pico.set.layer("quadro_gelo")
+    local mouse = pico.get.mouse('%', layer_place)
+    local grid_mouse = {'#', x=3, y=3}
     for _, cor in ipairs(cores) do
-        if pico.vs.pos_rect(mouse, cor.rect) then
+        print(mouse.x, mouse.y)
+        if pico.vs.pos_rect(grid_mouse, cor.rect) then
             cor_select = cor
             print(cor.texto)
         end 
     end
-    pico.set.layer(nil)
 end
+
 
 function Personalizacao.renderizar()
     
     pico.set.window{title="Personalização"}
-    mouse = pico.get.mouse()
     cria_layer_quadro()
-    pico.set.layer(nil)
     
     while true do
         local e = pico.input.event()
-        mouse = pico.get.mouse()
+        local mouse = pico.get.mouse('!')
         if e ~= nil then
             if e.tag=='mouse.button.dn' then
                 if pico.vs.pos_rect(mouse, voltar) then
@@ -80,10 +81,9 @@ function Personalizacao.renderizar()
         end 
 
         local img_voltar = pico.vs.pos_rect(mouse, voltar) and "../../imgs/botoes/b_voltar_clicado.png" or "../../imgs/botoes/b_voltar.png"
-
         local base_pinguins = "../../imgs/personalizar/pinguim"
         
-        
+        mouse_em_cor()
 
         pico.output.clear()
         pico.output.draw.image("../../imgs/background_personalizar.png", background)
@@ -91,8 +91,7 @@ function Personalizacao.renderizar()
         pico.output.draw.image(img_voltar, voltar)
         pico.output.draw.text("Escolha sua cor", texto_escolha)
 
-        pico.output.draw.layer("quadro_gelo", {'%', x=0.78, y=0.5,  anchor='C'})
-        mouse_em_cor()
+        pico.output.draw.layer("quadro_gelo", layer_place )
         pico.output.present()
     end
 end

@@ -78,7 +78,7 @@ static inline int RenderBeanCountersScreen(
     pilha_2.pos_y = ALTURA * 0.80;
 
     TTF_Init();
-    TTF_Font *fnt = TTF_OpenFont("fonts/Lovelo/lovelo_black.otf", 50);
+    TTF_Font *fnt = TTF_OpenFont("../fonts/Lovelo/lovelo_black.otf", 50);
     assert(fnt != NULL);
     SDL_Color clr = {0xFF, 0xFF, 0xFF, 0xFF};
 

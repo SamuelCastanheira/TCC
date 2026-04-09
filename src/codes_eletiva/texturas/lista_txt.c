@@ -40,7 +40,7 @@ void le_prox_textura(ListaTexturas *lista, SDL_Renderer *renderizador)
     // --- 3. Monta o caminho completo ---
     char caminho_completo[512];
     snprintf(caminho_completo, sizeof(caminho_completo), "%s%s", base, relativo);
-
+    printf("%s\n",caminho_completo);
     // SDL_GetBasePath retorna memória que precisa ser liberada
     SDL_free(base);
 

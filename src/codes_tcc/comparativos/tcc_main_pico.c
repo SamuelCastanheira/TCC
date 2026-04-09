@@ -22,15 +22,15 @@ int main(int args, char* argc[]) {
     pico_set_expert(1,20);
     pico_output_clear();
 
-    pico_output_draw_image("imgs/background_personalizar.png", &background);
-    pico_output_draw_image("imgs/personalizar/pinguim_amarelo.png", &pinguim);
-    pico_output_draw_image("imgs/botoes/b_voltar.png", &voltar);
-    pico_output_draw_image("imgs/personalizar/quadro.png", &quadro);
+    pico_output_draw_image("../../imgs/background_personalizar.png", &background);
+    pico_output_draw_image("../../imgs/personalizar/pinguim_amarelo.png", &pinguim);
+    pico_output_draw_image("../../imgs/botoes/b_voltar.png", &voltar);
+    pico_output_draw_image("../../imgs/personalizar/quadro.png", &quadro);
     pico_set_color_draw((Pico_Color){0xFF,0xFF,0xFF});
     pico_output_draw_text("Escolha sua cor: ", &escolha);
    
     char path[100];
-    char base[] = "imgs/personalizar"; 
+    char base[] = "../../imgs/personalizar"; 
 
     for (int i = 0; i < CORES; i++) {
         snprintf(path, sizeof(path), "%s/%d.png", base, i);

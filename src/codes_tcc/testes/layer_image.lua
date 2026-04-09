@@ -13,7 +13,7 @@ pico.init(true)
     pico.output.draw.image("../../imgs/background_menu.png", background)
     pico.output.draw.layer("logo", {'%', x= 0.5, y=0.5, w=1.0})
 
-    pico.input.delay(6000)
+    pico.input.delay(1000)
 pico.init(false)
 
 print("a layer logo apresenta uma zoom (source) e isso não afeta transparencia\n\n")
@@ -32,7 +32,7 @@ pico.init(true)
     pico.output.draw.image("../../imgs/background_menu.png", background)
     pico.output.draw.layer("logo", {'%', x= 0.5, y=0.5, w=1.0})
 
-    pico.input.delay(6000)
+    pico.input.delay(1000)
 pico.init(false)
 
 print("modifico dim da layer e isso causa perda de transparencia em todos os tipos de rel_dim\n\n")
@@ -41,6 +41,8 @@ pico.init(true)
     pico.layer.empty("logo", {w=100, h=100})
     pico.set.layer("logo")
     pico.set.view{dim={'!', w=50,h=50}}
+    pico.set.color.clear({'!', r=0x00,g=0xFF,b=0x00, a=0x00})
+    pico.output.clear()
     local logo = {'%', x= 0.5, y=0.5, w=1.0}
     pico.output.draw.image("../../imgs/logo.png", logo)
    
@@ -50,7 +52,7 @@ pico.init(true)
     pico.output.draw.image("../../imgs/background_menu.png", background)
     pico.output.draw.layer("logo", {'%', x= 0.5, y=0.5, w=1.0})
 
-    pico.input.delay(6000)
+    pico.input.delay(1000)
 pico.init(false)
 
 print("declaro implicitamente a quantidade de quadrados da view alterando o tile do layer, assim, transparencia se mantem. O que causa a perda da transparencia parece ser redimensionar a dim da layer\n\n")
@@ -68,5 +70,5 @@ pico.init(true)
     pico.output.draw.image("../../imgs/background_menu.png", background)
     pico.output.draw.layer("logo", {'%', x= 0.5, y=0.5, w=1.0})
 
-    pico.input.delay(6000)
+    pico.input.delay(1000)
 pico.init(false)

@@ -39,24 +39,24 @@ static inline int RenderPegaPuffleScreen(
     obterTamanhoJanela(janela, &LARGURA, &ALTURA);
 
     IMG_Init(IMG_INIT_PNG);
-    SDL_Texture *fundo_img = IMG_LoadTexture(renderizador, "imgs/puffle_roundup/fundo.png");
-    SDL_Texture *arvores_img = IMG_LoadTexture(renderizador, "imgs/puffle_roundup/arvores.png");
+    SDL_Texture *fundo_img = IMG_LoadTexture(renderizador, "../imgs//puffle_roundup/fundo.png");
+    SDL_Texture *arvores_img = IMG_LoadTexture(renderizador, "../imgs//puffle_roundup/arvores.png");
 
     int num_puffles = 10;
     int altura_puffle = ALTURA/18;
     int largura_puffle = ALTURA/18;
 
     const char *puffle_paths[] = {
-        "imgs/puffle_roundup/puffle_amarelo.png",
-        "imgs/puffle_roundup/puffle_azul.png",
-        "imgs/puffle_roundup/puffle_branco.png",
-        "imgs/puffle_roundup/puffle_vermelho.png",
-        "imgs/puffle_roundup/puffle_verde.png",
-        "imgs/puffle_roundup/puffle_laranja.png",
-        "imgs/puffle_roundup/puffle_rosa.png",
-        "imgs/puffle_roundup/puffle_roxo.png",
-        "imgs/puffle_roundup/puffle_preto.png",
-        "imgs/puffle_roundup/puffle_marrom.png"
+        "../imgs//puffle_roundup/puffle_amarelo.png",
+        "../imgs//puffle_roundup/puffle_azul.png",
+        "../imgs//puffle_roundup/puffle_branco.png",
+        "../imgs//puffle_roundup/puffle_vermelho.png",
+        "../imgs//puffle_roundup/puffle_verde.png",
+        "../imgs//puffle_roundup/puffle_laranja.png",
+        "../imgs//puffle_roundup/puffle_rosa.png",
+        "../imgs//puffle_roundup/puffle_roxo.png",
+        "../imgs//puffle_roundup/puffle_preto.png",
+        "../imgs//puffle_roundup/puffle_marrom.png"
     };
     SDL_Texture *puffle_textures[num_puffles];
     for (int i = 0; i < num_puffles; i++) {
