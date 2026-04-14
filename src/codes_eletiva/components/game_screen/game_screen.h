@@ -24,7 +24,7 @@ static inline int RenderGameScreen(SDL_Window *janela, SDL_Renderer *renderizado
     SDL_GetMouseState(&mouse_x, &mouse_y);
 
     TTF_Init();
-    TTF_Font *fonte = TTF_OpenFont("../fonts/Lovelo/lovelo_black.otf", 50);
+    TTF_Font *fonte = TTF_OpenFont("../../assets/fonts/Lovelo/lovelo_black.otf", 50);
     SDL_Color corTexto = {255, 255, 0, 255}; // Amarelo
 
     SDL_Surface* textoSurface = TTF_RenderText_Blended(fonte, dinheiro, corTexto);
@@ -41,7 +41,7 @@ static inline int RenderGameScreen(SDL_Window *janela, SDL_Renderer *renderizado
 
 
     IMG_Init(IMG_INIT_PNG);
-    SDL_Texture *centroIMG = IMG_LoadTexture(renderizador, "../imgs/centro.png");    
+    SDL_Texture *centroIMG = IMG_LoadTexture(renderizador, "../../assets/imgs/centro.png");    
     SDL_Texture *textura_pinguim[TOTAL_DIRECOES];
     SDL_Texture *textura_atual;
 
@@ -50,7 +50,7 @@ static inline int RenderGameScreen(SDL_Window *janela, SDL_Renderer *renderizado
     SDL_Texture* moeda_textura = lista_txt.inicio[TEX_MOEDA].txt;
 
     for (int i = 0; i < TOTAL_DIRECOES; i++) {
-        sprintf(caminho, "../imgs/pinguim/%s/%s.png", nomes_cores[corSelecionada], nomes_direcoes[i]);
+        sprintf(caminho, "../../assets/imgs/pinguim/%s/%s.png", nomes_cores[corSelecionada], nomes_direcoes[i]);
         textura_pinguim[i] = IMG_LoadTexture(renderizador, caminho);
     }
     textura_atual = textura_pinguim[SUL];
@@ -61,13 +61,13 @@ static inline int RenderGameScreen(SDL_Window *janela, SDL_Renderer *renderizado
     
     Objeto coffe;
     coffe.rect = (SDL_Rect){(LARGURA*0.10), (ALTURA*0.20), LARGURA*0.40, ALTURA*0.40};
-    coffe.txt_nao_clicado = IMG_LoadTexture(renderizador, "../imgs/coffe.png");
-    coffe.txt_clicado = IMG_LoadTexture(renderizador, "../imgs/coffe_hover.png");
+    coffe.txt_nao_clicado = IMG_LoadTexture(renderizador, "../../assets/imgs/coffe.png");
+    coffe.txt_clicado = IMG_LoadTexture(renderizador, "../../assets/imgs/coffe_hover.png");
 
     Objeto pega_puffle;
     pega_puffle.rect = (SDL_Rect){(LARGURA*0.40), (ALTURA*0.20), LARGURA*0.3, ALTURA*0.3};
-    pega_puffle.txt_nao_clicado = IMG_LoadTexture(renderizador, "../imgs/pet_shop.png");
-    pega_puffle.txt_clicado = IMG_LoadTexture(renderizador, "../imgs/pet_shop_hover.png");
+    pega_puffle.txt_nao_clicado = IMG_LoadTexture(renderizador, "../../assets/imgs/pet_shop.png");
+    pega_puffle.txt_clicado = IMG_LoadTexture(renderizador, "../../assets/imgs/pet_shop_hover.png");
 
     Objeto dojo;
     dojo.rect = (SDL_Rect){(LARGURA*0.60), (ALTURA*0.22), LARGURA*0.3, ALTURA*0.3};

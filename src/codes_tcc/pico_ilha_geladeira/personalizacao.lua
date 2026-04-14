@@ -37,9 +37,9 @@ function cria_layer_quadro()
     pico.set.layer("quadro_gelo")
     pico.set.view{tile={w=dim.w/new_tile.x, h=dim.h/new_tile.y}}
     local quadro_gelo = {'#', x=1, y=1, w=7, h=5, anchor='NW'}
-    pico.output.draw.image("../../imgs/personalizar/quadro.png", quadro_gelo)
+    pico.output.draw.image("../../../assets/imgs/personalizar/quadro.png", quadro_gelo)
 
-    local base = "../../imgs/personalizar"
+    local base = "../../../assets/imgs/personalizar"
     for _, cor in ipairs(cores) do
         local path = string.format("%s/%d.png", base, cor.index)
         pico.output.draw.image(path, cor.rect)
@@ -49,10 +49,9 @@ end
 
 function mouse_em_cor()
     local mouse = pico.get.mouse('%', layer_place)
-    local grid_mouse = {'#', x=3, y=3}
     for _, cor in ipairs(cores) do
         print(mouse.x, mouse.y)
-        if pico.vs.pos_rect(grid_mouse, cor.rect) then
+        if pico.vs.pos_rect(mouse, cor.rect) then
             cor_select = cor
             print(cor.texto)
         end 
@@ -80,13 +79,13 @@ function Personalizacao.renderizar()
             end
         end 
 
-        local img_voltar = pico.vs.pos_rect(mouse, voltar) and "../../imgs/botoes/b_voltar_clicado.png" or "../../imgs/botoes/b_voltar.png"
-        local base_pinguins = "../../imgs/personalizar/pinguim"
+        local img_voltar = pico.vs.pos_rect(mouse, voltar) and "../../../assets/imgs/botoes/b_voltar_clicado.png" or "../../imgs/botoes/b_voltar.png"
+        local base_pinguins = "../../../assets/imgs/personalizar/pinguim"
         
         mouse_em_cor()
 
         pico.output.clear()
-        pico.output.draw.image("../../imgs/background_personalizar.png", background)
+        pico.output.draw.image("../../../assets/imgs/background_personalizar.png", background)
         pico.output.draw.image(string.format("%s_%s.png", base_pinguins, cor_select.texto), pinguim)
         pico.output.draw.image(img_voltar, voltar)
         pico.output.draw.text("Escolha sua cor", texto_escolha)

@@ -31,12 +31,12 @@ function Menu.renderizar()
             end
         end
 
-        local img_jogar = pico.vs.pos_rect(mouse, bt_jogar) and "../../imgs/botoes/b_jogar_clicado.png" or "../../imgs/botoes/b_jogar.png"
-        local img_personalizar = pico.vs.pos_rect(mouse, bt_personalizar) and "../../imgs/botoes/b_personalizar_clicado.png" or "../../imgs/botoes/b_personalizar.png"
-        local img_sair = pico.vs.pos_rect(mouse, bt_sair) and "../../imgs/botoes/b_sair_clicado.png" or "../../imgs/botoes/b_sair.png"
+        local img_jogar = pico.vs.pos_rect(mouse, bt_jogar) and "../../../assets/imgs/botoes/b_jogar_clicado.png" or "../../imgs/botoes/b_jogar.png"
+        local img_personalizar = pico.vs.pos_rect(mouse, bt_personalizar) and "../../../assets/imgs/botoes/b_personalizar_clicado.png" or "../../imgs/botoes/b_personalizar.png"
+        local img_sair = pico.vs.pos_rect(mouse, bt_sair) and "../../../assets/imgs/botoes/b_sair_clicado.png" or "../../imgs/botoes/b_sair.png"
 
-        pico.output.draw.image("../../imgs/background_menu.png", background) 
-        pico.output.draw.image("../../imgs/logo.png", logo) 
+        pico.output.draw.image("../../../assets/imgs/background_menu.png", background) 
+        pico.output.draw.image("../../../assets/imgs/logo.png", logo) 
         pico.output.draw.image(img_jogar, bt_jogar) 
         pico.output.draw.image(img_personalizar, bt_personalizar) 
         pico.output.draw.image(img_sair, bt_sair) 
