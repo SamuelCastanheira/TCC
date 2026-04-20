@@ -1,12 +1,15 @@
 local Objeto = {}
 
 -- Função construtora para criar uma nova loja
-function Objeto.create(rect, img, img_hover)
+function Objeto.create(opts)
+    opts = opts or {}
+
     return {
-        rect = rect,
+        rect = opts.rect or {},
         hover = false,
-        img = img,
-        img_hover = img_hover,
+        img = opts.img,
+        img_hover = opts.img_hover or opts.img,
+
         get_img = function(self)
             return self.hover and self.img_hover or self.img
         end

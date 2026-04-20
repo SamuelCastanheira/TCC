@@ -2,20 +2,24 @@ local Centro = {}
 local Dojo = require("dojo")
 local Objeto =  require("util.objeto")
 
-local background = Objeto.create({'%', x=0.5, y=0.5, w=1, h=1},
-                        "../../../assets/imgs/centro.png")
+local background = Objeto.create({
+                        rect = {'%', x=0.5, y=0.5, w=1, h=1},
+                        img = "../../../assets/imgs/centro.png"})
 
-local cafeteria = Objeto.create({'%', x=0.25, y=0.4, w=0.4, h=0.4},
-                        "../../../assets/imgs/coffe.png",
-                        "../../../assets/imgs/coffe_hover.png")
+local cafeteria = Objeto.create({
+                        rect = {'%', x=0.25, y=0.4, w=0.4, h=0.4},
+                        img = "../../../assets/imgs/coffe.png",
+                        img_hover = "../../../assets/imgs/coffe_hover.png"})
 
-local petshop = Objeto.create({'%', x=0.5, y=0.4, w=0.35, h=0.35},
-                        "../../../assets/imgs/pet_shop.png",
-                        "../../../assets/imgs/pet_shop_hover.png")
+local petshop = Objeto.create({
+                        rect = {'%', x=0.5, y=0.4, w=0.35, h=0.35},
+                        img = "../../../assets/imgs/pet_shop.png",
+                        img_hover = "../../../assets/imgs/pet_shop_hover.png"})
 
-local dojo = Objeto.create({'%', x=0.72, y=0.39, w=0.35, h=0.35},
-                    "../../../assets/imgs/dojo/dojo.png",
-                        "../../../assets/imgs/dojo/dojo_hover.png")
+local dojo = Objeto.create({
+                        rect = {'%', x=0.72, y=0.39, w=0.35, h=0.35},
+                        img = "../../../assets/imgs/dojo/dojo.png",
+                        img_hover = "../../../assets/imgs/dojo/dojo_hover.png"})                    
 
 
 function Centro.init(state)
@@ -40,7 +44,7 @@ function Centro.update(state, event)
         if pico.vs.pos_rect(mouse, petshop.rect) then
             state.nextScreen = "pega_puffle"
         elseif pico.vs.pos_rect(mouse, cafeteria.rect) then
-            state.nextScreen = "dojo"
+            state.nextScreen = "bean_counters"
         elseif pico.vs.pos_rect(mouse, dojo.rect) then
             state.nextScreen = "dojo"
         end

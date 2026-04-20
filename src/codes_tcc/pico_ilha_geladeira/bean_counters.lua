@@ -29,7 +29,7 @@ local pinguim = {
     speed = 0.08
 }
 
-function update()
+function BeanCounters.update()
     local e = pico.input.event()
     if e ~= nil then
         if e.tag == 'key.dn' then
@@ -47,7 +47,7 @@ function update()
     end
 end
 
-function draw()    
+function BeanCounters.draw()    
         pico.output.clear()
         pico.output.draw.image(img_background, rect_background)
         pico.output.draw.image(img_neve, rect_neve)
@@ -59,12 +59,12 @@ function draw()
 end
 
 
-function BeanCounters.renderizar()
+function BeanCounters.init()
     pico.set.window{title="Bean Counters"}
-    while jogando do
-        update()
-        draw()
-    end
+end 
+
+function BeanCounters.finish()
+    
 end 
 
 return BeanCounters

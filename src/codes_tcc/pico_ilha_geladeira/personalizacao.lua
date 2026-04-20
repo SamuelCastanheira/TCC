@@ -29,10 +29,10 @@ local layer_place = {'%', x=0.78, y=0.5, w=0.4, h=0.5}
 
 local function cria_layer_quadro()
     local dim = {w=600, h=400}
-    local new_tile = {x=7, y=5}
+    local tile = {x=7, y=5}
     pico.layer.empty('=', "quadro_gelo", {w=dim.w, h=dim.h})
     pico.set.layer("quadro_gelo")
-    pico.set.view{tile={w=dim.w/new_tile.x, h=dim.h/new_tile.y}}
+    pico.set.view{tile={w=dim.w/tile.x, h=dim.h/tile.y}}
     local quadro_gelo = {'#', x=1, y=1, w=7, h=5, anchor='NW'}
     pico.output.draw.image("../../../assets/imgs/personalizar/quadro.png", quadro_gelo)
 

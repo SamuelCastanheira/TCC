@@ -34,8 +34,8 @@ local function sortearCartas(pool)
 
         if not cartas_na_mao[idx] then
             cartas_na_mao[idx] = true
-            local base = pool[idx]
-            table.insert(mao, Carta.create(base.elemento, base.pontuacao, base.path))
+            local carta = pool[idx]
+            table.insert(mao, carta:copy())
         end
     end
 
@@ -86,7 +86,7 @@ local function desenha_mao(mao, isJogador, cartaSelecionada)
     for _, carta in ipairs(mao) do
         if carta ~= cartaSelecionada then
             if isJogador then
-                pico.output.draw.image(carta.path, carta.rect)
+                pico.output.draw.image(carta.img, carta.rect)
             else
                 pico.output.draw.image(carta:get_verso(), carta.rect)
             end
@@ -100,11 +100,26 @@ function Dojo.init(state)
     math.randomseed(pico.get.now())
     
     local pool = {
-        Carta.create(Elemento.AGUA, 3, "../../../assets/imgs/dojo/agua_3.png"),
-        Carta.create(Elemento.FOGO, 4, "../../../assets/imgs/dojo/fogo_4.png"),
-        Carta.create(Elemento.FOGO, 7, "../../../assets/imgs/dojo/fogo_7.png"),
-        Carta.create(Elemento.GELO, 5, "../../../assets/imgs/dojo/gelo_5.png"),
-        Carta.create(Elemento.GELO, 6, "../../../assets/imgs/dojo/gelo_6.png")
+        Carta.create({
+                    elemento = Elemento.AGUA, 
+                    pontuacao = 3, 
+                    img="../../../assets/imgs/dojo/agua_3.png"}),
+        Carta.create({
+                    elemento =Elemento.FOGO,
+                    pontuacao =4, 
+                    img="../../../assets/imgs/dojo/fogo_4.png"}),
+        Carta.create({
+                    elemento =Elemento.FOGO, 
+                    pontuacao =7, 
+                    img="../../../assets/imgs/dojo/fogo_7.png"}),
+        Carta.create({
+                    Elemento.GELO, 
+                    pontuacao =5, 
+                    img="../../../assets/imgs/dojo/gelo_5.png"}),
+        Carta.create({
+                    Elemento.GELO, 
+                    pontuacao =6, 
+                    img="../../../assets/imgs/dojo/gelo_6.png"})
     }
 
     state.dojoData = {
@@ -214,18 +229,14 @@ function Dojo.draw(state)
 
     if jogo.estado == DuelState.MOSTRANDO_RESULTADO then
 
-        pico.output.draw.image(jogo.cartaSelecionada.path, rect_jogador)
-        pico.output.draw.image(jogo.cartaNPCSelecionada.path, rect_npc)
-        pico.output.draw.image(jogo.cartaSelecionada.path, rect_jogador)
-        pico.output.draw.image(jogo.cartaNPCSelecionada.path, rect_npc)
+        pico.output.draw.image(jogo.cartaSelecionada.img, rect_jogador)
+        pico.output.draw.image(jogo.cartaNPCSelecionada.img, rect_npc)
+        pico.output.draw.image(jogo.cartaSelecionada.img, rect_jogador)
+        pico.output.draw.image(jogo.cartaNPCSelecionada.img, rect_npc)
 
         if jogo.resultado == ResultadoState.GANHOU then
             pico.output.draw.image("../../../assets/imgs/dojo/ok.png", rect_jogador)
             pico.output.draw.image("../../../assets/imgs/dojo/x.png", rect_npc)
-        if jogo.resultado == ResultadoState.GANHOU then
-            pico.output.draw.image("../../../assets/imgs/dojo/ok.png", rect_jogador)
-            pico.output.draw.image("../../../assets/imgs/dojo/x.png", rect_npc)
-
         elseif jogo.resultado == ResultadoState.PERDEU then
             pico.output.draw.image("../../../assets/imgs/dojo/x.png", rect_jogador)
             pico.output.draw.image("../../../assets/imgs/dojo/ok.png", rect_npc)

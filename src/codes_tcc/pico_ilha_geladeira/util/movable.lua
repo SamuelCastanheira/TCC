@@ -7,139 +7,159 @@ Movable.__index = Movable
 -- Herança: Movable herda de Objeto
 setmetatable(Movable, {__index = Objeto})
 
---- Cria um novo objeto móvel
--- @param rect tabela - retângulo de posição {%, x, y, w, h}
--- @param img string - caminho da imagem padrão
--- @param img_hover string - caminho da imagem ao passar mouse
--- @param velocidade Vetor - velocidade inicial (opcional)
--- @return Movable novo objeto móvel
-function Movable.create(rect, img, img_hover, velocidade)
-    local self = {
-        rect = rect,
-        img = img,
-        img_hover = img_hover,
-        hover = false,
-        velocidade = velocidade or Vetor.new(0, 0),
-        get_img = function(self)
-            return self.hover and self.img_hover or self.img
-        end
-    }
+function Movable.create(opts)
+    opts = opts or {}
+    local self = Objeto.create(opts)
+    
+    self.velocidade = opts.velocidade or Vetor.new{ x = 0, y = 0 }
+    self.destino = nil
+    self.distancia_destino = 0
+    self.em_fuga = false
+    self.tempo_fuga = 0
+    self.dentro_cercado = false
     
     setmetatable(self, Movable)
     return self
 end
 
---- Obtém a magnitude da velocidade
--- @return number magnitude da velocidade
-function Movable:get_velocidade_magnitude()
-    return self.velocidade:magnitude()
-end
+-- ==================== MOVIMENTO ====================
 
---- Para o movimento zerando a velocidade
--- @return Movable self para encadeamento
-function Movable:parar()
-    self.velocidade = Vetor.new(0, 0)
-    return self
-end
-
---- Define a velocidade do objeto
--- @param vx number - componente x da velocidade
--- @param vy number - componente y da velocidade
--- @return Movable self para encadeamento
-function Movable:set_velocidade(vx, vy)
-    self.velocidade = Vetor.new(vx, vy)
-    return self
-end
-
---- Define a velocidade a partir de um vetor
--- @param vel Vetor - vetor de velocidade
--- @return Movable self para encadeamento
-function Movable:set_velocidade_vetor(vel)
-    self.velocidade = vel:copy()
-    return self
-end
-
---- Atualiza a posição baseado na velocidade
--- @param dt number - delta time (tempo decorrido)
--- @return Movable self para encadeamento
 function Movable:atualizar_posicao(dt)
     self.rect.x = self.rect.x + self.velocidade.x * dt
     self.rect.y = self.rect.y + self.velocidade.y * dt
     return self
 end
 
---- Limita a magnitude da velocidade
--- @param max_vel number - velocidade máxima
--- @return Movable self para encadeamento
-function Movable:limitar_velocidade(max_vel)
-    self.velocidade:clamp(max_vel)
+function Movable:set_velocidade(vx, vy)
+    self.velocidade = Vetor.new({x=vx, y=vy})
     return self
 end
 
---- Desacelera o objeto multiplicando a velocidade por um fator
--- @param fator number - fator de desaceleração (0 a 1)
--- @return Movable self para encadeamento
-function Movable:desacelerar(fator)
-    self.velocidade:multiply(fator)
+function Movable:parar()
+    self.velocidade = Vetor.new({x=0, y=0})
     return self
 end
 
---- Adiciona uma força (aceleração) ao objeto
--- @param fx number - força em x
--- @param fy number - força em y
--- @return Movable self para encadeamento
-function Movable:aplicar_forca(fx, fy)
-    self.velocidade:add(Vetor.new(fx, fy))
+function Movable:limpar_movimento()
+    self.velocidade = Vetor.new({x=0, y=0})
+    self.destino = nil
+    self.distancia_destino = 0
+    self.em_fuga = false
+    self.tempo_fuga = 0
     return self
 end
 
---- Adiciona uma força vetorial ao objeto
--- @param forca Vetor - vetor de força
--- @return Movable self para encadeamento
-function Movable:aplicar_forca_vetor(forca)
-    self.velocidade:add(forca)
+-- ==================== DESTINO ====================
+
+function Movable:ir_para(destino_x, destino_y, velocidade_escalar)
+    velocidade_escalar = velocidade_escalar or 0.1
+    
+    self.destino = {x = destino_x, y = destino_y}
+    
+    local dx = self.destino.x - self.rect.x
+    local dy = self.destino.y - self.rect.y
+    local dist = math.sqrt(dx * dx + dy * dy)
+    
+    self.distancia_destino = dist
+    
+    if dist > 0 then
+        self.velocidade.x = (dx / dist) * velocidade_escalar
+        self.velocidade.y = (dy / dist) * velocidade_escalar
+    end
+    
     return self
 end
 
---- Ricocheia a velocidade em relação a uma normal (reflexão)
--- @param normal Vetor - vetor normal (deve estar normalizado)
--- @param amortecimento number - fator de amortecimento (0 a 1)
--- @return Movable self para encadeamento
-function Movable:ricochear(normal, amortecimento)
-    amortecimento = amortecimento or 0.5
-    self.velocidade:reflect(normal):multiply(amortecimento)
+function Movable:atualizar_destino()
+    if not self.destino then return false end
+    
+    local dx = self.destino.x - self.rect.x
+    local dy = self.destino.y - self.rect.y
+    local nova_dist = math.sqrt(dx * dx + dy * dy)
+    
+    self.distancia_destino = nova_dist
+    
+    -- Chegou ao destino
+    if nova_dist < 0.01 then
+        self.rect.x = self.destino.x
+        self.rect.y = self.destino.y
+        self:limpar_movimento()
+        return true
+    end
+    
+    return false
+end
+
+-- ==================== FUGA ====================
+
+function Movable:ativar_fuga(dir_x, dir_y, velocidade_escalar, duracao)
+    velocidade_escalar = velocidade_escalar or 0.1
+    duracao = duracao or 0.4
+    
+    self.velocidade.x = dir_x * velocidade_escalar
+    self.velocidade.y = dir_y * velocidade_escalar
+    self.em_fuga = true
+    self.tempo_fuga = duracao
+    self.destino = nil
+    self.distancia_destino = 0
+    
     return self
 end
 
---- Obtém a posição como um Vetor
--- @return Vetor posição (cópia)
+function Movable:atualizar_fuga(dt)
+    if not self.em_fuga then return false end
+    
+    self.tempo_fuga = self.tempo_fuga - dt
+    
+    if self.tempo_fuga <= 0 then
+        self.em_fuga = false
+        self:parar()
+        return true
+    end
+    
+    return false
+end
+
+-- ==================== POSIÇÃO ====================
+
+function Movable:get_velocidade_magnitude()
+    return self.velocidade:magnitude()
+end
+
 function Movable:get_posicao_vetor()
-    return Vetor.new(self.rect.x, self.rect.y)
+    return Vetor.new({x=self.rect.x, y=self.rect.y})
 end
 
---- Define a posição usando um Vetor
--- @param pos Vetor - novo vetor de posição
--- @return Movable self para encadeamento
 function Movable:set_posicao_vetor(pos)
     self.rect.x = pos.x
     self.rect.y = pos.y
     return self
 end
 
---- Verifica se está dentro de um retângulo
--- @param cercado_rect tabela - retângulo para verificação
--- @return boolean true se está dentro
+function Movable:revert_posicao(pos_anterior)
+    self.rect.x = pos_anterior.x
+    self.rect.y = pos_anterior.y
+    return self
+end
+
+-- ==================== VERIFICAÇÕES ====================
+
 function Movable:esta_dentro(cercado_rect)
     return pico.vs.pos_rect(self.rect, cercado_rect)
 end
 
---- Obtém a distância para outro objeto
--- @param outro Movable - outro objeto móvel
--- @return number distância
 function Movable:distancia_para(outro)
     local pos1 = self:get_posicao_vetor()
     local pos2 = outro:get_posicao_vetor()
     return pos1:distance(pos2)
+end
+
+function Movable:esta_em_movimento()
+    return self.destino ~= nil or self.em_fuga
+end
+
+function Movable:pode_receber_comando()
+    return not self.dentro_cercado and not self.em_fuga
 end
 
 return Movable

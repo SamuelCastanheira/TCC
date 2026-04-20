@@ -4,7 +4,8 @@ local screens = {
     dojo = require("dojo"),
     person = require("personalizacao"),
     centro = require("centro"),
-    pega_puffle = require("pega_puffle")
+    pega_puffle = require("pega_puffle"),
+    bean_counters = require("bean_counters")
 }
 
 -- Estado global compartilhado (novo, para evitar globais)

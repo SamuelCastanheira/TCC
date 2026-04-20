@@ -5,17 +5,20 @@ Vetor.__index = Vetor
 -- @param x número - componente x
 -- @param y número - componente y
 -- @return Vetor novo objeto vetor
-function Vetor.new(x, y)
+function Vetor.new(opts)
+    opts = opts or {}
+
     local self = setmetatable({}, Vetor)
-    self.x = x or 0
-    self.y = y or 0
+    self.x = opts.x or 0
+    self.y = opts.y or 0
+
     return self
 end
 
 --- Cria um vetor nulo (0, 0)
 -- @return Vetor novo vetor nulo
 function Vetor.zero()
-    return Vetor.new(0, 0)
+    return Vetor.new({x=0, y=0})
 end
 
 --- Cria um vetor a partir de um ângulo e magnitude
@@ -24,16 +27,16 @@ end
 -- @return Vetor novo vetor
 function Vetor.fromAngle(angle, magnitude)
     magnitude = magnitude or 1
-    return Vetor.new(
-        magnitude * math.cos(angle),
-        magnitude * math.sin(angle)
-    )
+    return Vetor.new({
+        x=magnitude * math.cos(angle),
+        y=magnitude * math.sin(angle)
+    })
 end
 
 --- Cria uma cópia do vetor
 -- @return Vetor cópia do vetor
 function Vetor:copy()
-    return Vetor.new(self.x, self.y)
+    return Vetor.new({x=self.x, y=self.y})
 end
 
 --- Calcula a magnitude (comprimento) do vetor
@@ -87,7 +90,7 @@ end
 -- @param v2 Vetor segundo vetor
 -- @return Vetor novo vetor resultante
 function Vetor.add(v1, v2)
-    return Vetor.new(v1.x + v2.x, v1.y + v2.y)
+    return Vetor.new({x=v1.x + v2.x, y=v1.y + v2.y})
 end
 
 --- Subtrai outro vetor deste
@@ -104,7 +107,7 @@ end
 -- @param v2 Vetor segundo vetor
 -- @return Vetor novo vetor resultante
 function Vetor.subtract(v1, v2)
-    return Vetor.new(v1.x - v2.x, v1.y - v2.y)
+    return Vetor.new{x= v1.x - v2.x, y= v1.y - v2.y}
 end
 
 --- Multiplica o vetor por um escalar
@@ -121,7 +124,7 @@ end
 -- @param scalar number fator de multiplicação
 -- @return Vetor novo vetor resultante
 function Vetor.multiply(v, scalar)
-    return Vetor.new(v.x * scalar, v.y * scalar)
+    return Vetor.new({x=v.x * scalar, y=v.y * scalar})
 end
 
 --- Divide o vetor por um escalar
@@ -141,7 +144,7 @@ end
 -- @return Vetor novo vetor resultante
 function Vetor.divide(v, scalar)
     if scalar ~= 0 then
-        return Vetor.new(v.x / scalar, v.y / scalar)
+        return Vetor.new({x=v.x / scalar, y=v.y / scalar})
     end
     return v:copy()
 end
@@ -245,7 +248,7 @@ end
 -- @param v Vetor vetor a inverter
 -- @return Vetor novo vetor invertido
 function Vetor.negate(v)
-    return Vetor.new(-v.x, -v.y)
+    return Vetor.new({x=-v.x, y=-v.y})
 end
 
 --- Limita a magnitude do vetor a um valor máximo
@@ -285,10 +288,10 @@ end
 -- @param t number fator de interpolação (0 a 1)
 -- @return Vetor novo vetor interpolado
 function Vetor.lerp(v1, v2, t)
-    return Vetor.new(
-        v1.x + (v2.x - v1.x) * t,
-        v1.y + (v2.y - v1.y) * t
-    )
+    return Vetor.new({
+        x=v1.x + (v2.x - v1.x) * t,
+        y=v1.y + (v2.y - v1.y) * t
+    })
 end
 
 --- Reflete o vetor em relação a uma normal
@@ -304,7 +307,7 @@ end
 --- Obtém um vetor perpendicular (rotação de 90 graus)
 -- @return Vetor novo vetor perpendicular
 function Vetor:perpendicular()
-    return Vetor.new(-self.y, self.x)
+    return Vetor.new({x=-self.y, y=self.x})
 end
 
 --- Verifica se o vetor é nulo (0, 0)
