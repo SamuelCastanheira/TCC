@@ -1,4 +1,5 @@
 local Movable = require("util.movable")
+local Vetor = require("util.vetor")
 
 local Puffle = {}
 Puffle.__index = Puffle
@@ -43,8 +44,5 @@ function Puffle.lista()
     end
     return puffles
 end
-
--- Métodos específicos de Puffle
--- (métodos de movimento estão em Movable)
 
 return Puffle

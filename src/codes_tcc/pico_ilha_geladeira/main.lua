@@ -20,7 +20,7 @@ pico.init(true)
 local phy = {'!', w=1280, h=720}
 pico.set.view{grid=false}
 pico.set.dim(phy)
-pico.set.expert(true, 30)
+pico.set.expert(true, 60)
 
 -- Inicializa a tela atual
 local current = screens[gameState.screen]

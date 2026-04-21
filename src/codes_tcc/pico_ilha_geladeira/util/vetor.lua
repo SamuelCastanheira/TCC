@@ -119,14 +119,6 @@ function Vetor:multiply(scalar)
     return self
 end
 
---- Retorna um novo vetor multiplicado por um escalar
--- @param v Vetor vetor a multiplicar
--- @param scalar number fator de multiplicação
--- @return Vetor novo vetor resultante
-function Vetor.multiply(v, scalar)
-    return Vetor.new({x=v.x * scalar, y=v.y * scalar})
-end
-
 --- Divide o vetor por um escalar
 -- @param scalar number divisor
 -- @return Vetor self para encadeamento
@@ -196,23 +188,6 @@ function Vetor:angle()
     return math.atan2(self.y, self.x)
 end
 
---- Calcula o ângulo entre dois vetores em radianos
--- @param v Vetor outro vetor
--- @return number ângulo em radianos
-function Vetor:angleTo(v)
-    local angle1 = self:angle()
-    local angle2 = v:angle()
-    return angle2 - angle1
-end
-
---- Calcula o ângulo entre dois vetores
--- @param v1 Vetor primeiro vetor
--- @param v2 Vetor segundo vetor
--- @return number ângulo em radianos
-function Vetor.angle(v1, v2)
-    return v1:angleTo(v2)
-end
-
 --- Rotaciona o vetor por um ângulo em radianos
 -- @param angle number ângulo em radianos
 -- @return Vetor self para encadeamento
@@ -262,15 +237,6 @@ function Vetor:clamp(maxMagnitude)
     return self
 end
 
---- Retorna um novo vetor com magnitude limitada
--- @param v Vetor vetor a limitar
--- @param maxMagnitude number magnitude máxima
--- @return Vetor novo vetor limitado
-function Vetor.clamp(v, maxMagnitude)
-    local copy = v:copy()
-    copy:clamp(maxMagnitude)
-    return copy
-end
 
 --- Interpola linear entre dois vetores
 -- @param v Vetor vetor destino
