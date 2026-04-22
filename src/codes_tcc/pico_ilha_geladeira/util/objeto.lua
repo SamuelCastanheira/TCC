@@ -1,19 +1,21 @@
 local Objeto = {}
+Objeto.__index = Objeto
 
--- Função construtora para criar uma nova loja
 function Objeto.create(opts)
     opts = opts or {}
 
-    return {
-        rect = opts.rect or {},
-        hover = false,
-        img = opts.img,
-        img_hover = opts.img_hover or opts.img,
+    local self = setmetatable({}, Objeto)
 
-        get_img = function(self)
-            return self.hover and self.img_hover or self.img
-        end
-    }
+    self.rect = opts.rect or {}
+    self.hover = false
+    self.img = opts.img
+    self.img_hover = opts.img_hover or opts.img
+
+    return self
+end
+
+function Objeto:get_img()
+    return self.hover and self.img_hover or self.img
 end
 
 return Objeto

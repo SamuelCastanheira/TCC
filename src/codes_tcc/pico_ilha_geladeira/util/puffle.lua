@@ -13,9 +13,6 @@ function Puffle.create(opts)
     local self = Objeto.create(opts)
     setmetatable(self, Puffle)
 
-    self.em_fuga = false
-    self.tempo_fuga = 0
-    self.dentro_cercado = false
     self.direcao = Vetor.new({x=0, y=0})
     self.velocidade = opts.velocidade or Vetor.new{ x = 0, y = 0 }
 

@@ -1,5 +1,6 @@
 local Centro = {}
 local Objeto =  require("util.objeto")
+local Pinguim =  require("util.pinguim")
 
 local background = Objeto.create({
                         rect = {'%', x=0.5, y=0.5, w=1, h=1},
@@ -23,6 +24,11 @@ local dojo = Objeto.create({
 
 function Centro.init(state)
     pico.set.window{title="Centro"}
+    state.centroData =
+    {
+       pinguim = Pinguim.new({rect={'%', x=0.5, y=0.7, w=0.08, h=0}}),
+       last = pico.get.now()
+    }
 end
 
 function Centro.update(state, event)
@@ -30,6 +36,17 @@ function Centro.update(state, event)
     cafeteria.hover = false
     dojo.hover = false
     petshop.hover = false
+    local data = state.centroData
+    local agora = pico.get.now()
+    local dt =  (agora - data.last)/1000
+    data.last = agora
+
+    if event and event.tag == 'mouse.button.dn' then
+        data.pinguim:calcula_movimento(mouse)
+    end
+    if not data.pinguim:chegou_destino() then
+        data.pinguim:atualiza_posicao(dt)
+    end
 
     if pico.vs.pos_rect(mouse, petshop.rect) then
         petshop.hover = true
@@ -39,23 +56,23 @@ function Centro.update(state, event)
         dojo.hover = true
     end
 
-    if event and event.tag == 'mouse.button.dn' then
-        if pico.vs.pos_rect(mouse, petshop.rect) then
-            state.nextScreen = "pega_puffle"
-        elseif pico.vs.pos_rect(mouse, cafeteria.rect) then
-            state.nextScreen = "bean_counters"
-        elseif pico.vs.pos_rect(mouse, dojo.rect) then
-            state.nextScreen = "dojo"
-        end
+    if pico.vs.pos_rect(data.pinguim.rect, petshop.rect) then
+        state.nextScreen = "pega_puffle"
+    elseif pico.vs.pos_rect(data.pinguim.rect, cafeteria.rect) then
+        state.nextScreen = "bean_counters"
+    elseif pico.vs.pos_rect(data.pinguim.rect, dojo.rect) then
+        state.nextScreen = "dojo"
     end
 end
 
 function Centro.draw(state)
-
+    data = state.centroData
     pico.output.draw.image(background:get_img(), background.rect)
     pico.output.draw.image(cafeteria:get_img(), cafeteria.rect)
     pico.output.draw.image(dojo:get_img(), dojo.rect)
     pico.output.draw.image(petshop:get_img(), petshop.rect)
+    pico.output.draw.image(data.pinguim:get_img(), data.pinguim.rect)
+
 
     local moeda = {'%',x=0.05, y=0.05, w=0.05, h=0}
     local moeda_num = {'%',x=0.08, y=0, w=.025*#tostring(state.money), h= 0.1, anchor='NW'}

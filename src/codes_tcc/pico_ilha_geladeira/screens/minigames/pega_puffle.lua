@@ -188,7 +188,10 @@ function PegaPuffle.update(state, event)
             else
                 puffle:calcula_velocidade_vetorial(puffle.direcao, data.velocidade_esc)
             end
-            puffle:atualizar_posicao(dt)
+            
+            if not puffle.velocidade:isZero() then
+                puffle:atualizar_posicao(dt)
+            end
         else
             data.fugiram = data.fugiram + removerPuffle(data.puffles, puffle)
         end
